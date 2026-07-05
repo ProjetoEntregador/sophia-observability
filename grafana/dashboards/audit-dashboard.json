@@ -1,0 +1,121 @@
+{
+  "uid": "audit-events-dashboard",
+  "title": "Audit Events Overview",
+  "tags": ["audit", "security", "observability"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "table",
+      "title": "Latest Audit Events",
+      "datasource": {
+        "type": "postgres",
+        "uid": "audit-db"
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT occurred_at AS \"time\", service, entity, operation, changed_by, old_data::text AS old_data, new_data::text AS new_data FROM audit_events WHERE $__timeFilter(occurred_at) ORDER BY occurred_at DESC LIMIT 100;",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": 2,
+      "type": "barchart",
+      "title": "Audit Events by Service",
+      "datasource": {
+        "type": "postgres",
+        "uid": "audit-db"
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT service, COUNT(*) AS total FROM audit_events WHERE $__timeFilter(occurred_at) GROUP BY service ORDER BY total DESC;",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 10
+      }
+    },
+    {
+      "id": 3,
+      "type": "barchart",
+      "title": "Audit Events by Operation",
+      "datasource": {
+        "type": "postgres",
+        "uid": "audit-db"
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT operation, COUNT(*) AS total FROM audit_events WHERE $__timeFilter(occurred_at) GROUP BY operation ORDER BY total DESC;",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 10
+      }
+    },
+    {
+      "id": 4,
+      "type": "barchart",
+      "title": "Audit Events by Entity",
+      "datasource": {
+        "type": "postgres",
+        "uid": "audit-db"
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT entity, COUNT(*) AS total FROM audit_events WHERE $__timeFilter(occurred_at) GROUP BY entity ORDER BY total DESC;",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      }
+    },
+    {
+      "id": 5,
+      "type": "table",
+      "title": "Latest Security Alerts",
+      "datasource": {
+        "type": "postgres",
+        "uid": "audit-db"
+      },
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT created_at AS \"time\", service, severity, alert_type, message, details::text AS details FROM security_alerts WHERE $__timeFilter(created_at) ORDER BY created_at DESC LIMIT 100;",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      }
+    }
+  ]
+}

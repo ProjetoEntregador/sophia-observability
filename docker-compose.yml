@@ -1,0 +1,91 @@
+services:
+  audit-db:
+    image: postgres:16
+    container_name: audit-db
+    environment:
+      POSTGRES_USER: audit_user
+      POSTGRES_PASSWORD: audit_password
+      POSTGRES_DB: audit_db
+    ports:
+      - "5440:5432"
+    volumes:
+      - audit_db_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    networks:
+      - net1
+    restart: unless-stopped
+
+  audit-service:
+    build:
+      context: .
+    container_name: audit-service
+    depends_on:
+      - audit-db
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: admin
+      RABBITMQ_PASSWORD: admin
+      RABBITMQ_QUEUE: audit.queue
+
+      POSTGRES_HOST: audit-db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: audit_user
+      POSTGRES_PASSWORD: audit_password
+      POSTGRES_DB: audit_db
+    networks:
+      - net1
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus
+    container_name: audit-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - net1
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    container_name: audit-grafana
+    depends_on:
+      - prometheus
+      - audit-db
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - net1
+    restart: unless-stopped
+
+  loki:
+    image: grafana/loki:2.9.8
+    container_name: audit-loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yml
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/local-config.yml
+      - loki_data:/loki
+    networks:
+      - net1
+    restart: unless-stopped
+
+networks:
+  net1:
+    external: true
+    name: net1
+
+volumes:
+  audit_db_data:
+  grafana_data:
+  loki_data:
