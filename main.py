@@ -27,7 +27,7 @@ REQUIRED_FIELDS = [
     "service",
     "entity",
     "operation",
-    "occurred_at",
+    "occurredAt",
 ]
 
 
@@ -80,13 +80,13 @@ def validate_event(event):
     if not isinstance(event.get("operation"), str):
         raise ValueError("operation must be a string.")
 
-    parse_timestamp(event["occurred_at"])
+    parse_timestamp(event["occurredAt"])
 
 
 def save_audit_event(event):
     validate_event(event)
 
-    occurred_at = parse_timestamp(event["occurred_at"])
+    occurredAt = parse_timestamp(event["occurredAt"])
 
     with get_postgres_connection() as conn:
         with conn.cursor() as cur:
@@ -106,11 +106,11 @@ def save_audit_event(event):
                 (
                     event["service"],
                     event["entity"],
-                    Json(event.get("old_data")),
-                    Json(event.get("new_data")),
+                    Json(event.get("oldData")),
+                    Json(event.get("newData")),
                     normalize_operation(event["operation"]),
-                    event.get("changed_by"),
-                    occurred_at,
+                    event.get("changedBy"),
+                    occurredAt,
                 ),
             )
 
@@ -136,10 +136,10 @@ def create_security_alert_if_needed(event):
         "service": event.get("service"),
         "entity": event.get("entity"),
         "operation": operation,
-        "changed_by": event.get("changed_by"),
-        "old_data": event.get("old_data"),
-        "new_data": event.get("new_data"),
-        "occurred_at": event.get("occurred_at"),
+        "changedBy": event.get("changedBy"),
+        "oldData": event.get("oldData"),
+        "newData": event.get("newData"),
+        "occurredAt": event.get("occurredAt"),
     }
 
     with get_postgres_connection() as conn:
