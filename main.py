@@ -12,15 +12,15 @@ from psycopg2.extras import Json
 
 RABBITMQ_HOST = os.getenv("RABBITMQ_HOST", "rabbitmq")
 RABBITMQ_PORT = int(os.getenv("RABBITMQ_PORT", "5672"))
-RABBITMQ_USER = os.getenv("RABBITMQ_USER", "admin")
-RABBITMQ_PASSWORD = os.getenv("RABBITMQ_PASSWORD", "admin")
+RABBITMQ_USER = os.getenv("RABBITMQ_USER", "change_me")
+RABBITMQ_PASSWORD = os.getenv("RABBITMQ_PASSWORD", "change_me")
 RABBITMQ_QUEUE = os.getenv("RABBITMQ_QUEUE", "audit.events")
 
 POSTGRES_HOST = os.getenv("POSTGRES_HOST", "audit-db")
 POSTGRES_PORT = int(os.getenv("POSTGRES_PORT", "5432"))
-POSTGRES_USER = os.getenv("POSTGRES_USER", "audit_user")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "audit_password")
-POSTGRES_DB = os.getenv("POSTGRES_DB", "audit_db")
+POSTGRES_USER = os.getenv("POSTGRES_USER", "change_me")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "change_me")
+POSTGRES_DB = os.getenv("POSTGRES_DB", "change_me")
 
 
 REQUIRED_FIELDS = [

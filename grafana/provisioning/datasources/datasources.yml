@@ -21,11 +21,11 @@ datasources:
     type: postgres
     access: proxy
     url: audit-db:5432
-    user: audit_user
+    user: ${POSTGRES_USER}
     secureJsonData:
-      password: audit_password
+      password: ${POSTGRES_PASSWORD}
     jsonData:
-      database: audit_db
+      database: ${POSTGRES_DB}
       sslmode: disable
       postgresVersion: 1600
       timescaledb: false
