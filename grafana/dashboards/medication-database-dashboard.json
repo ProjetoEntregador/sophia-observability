@@ -501,53 +501,6 @@
       }
     },
     {
-      "id": 14,
-      "type": "barchart",
-      "title": "Top Queries by Total Execution Time",
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "targets": [
-        {
-          "expr": "topk(10, max by (query_preview) (pg_stat_statements_top_total_time_total_exec_time{service=\"medication\", datname=\"database_name\"}))",
-          "legendFormat": "{{query_preview}}",
-          "refId": "A",
-          "instant": true
-        }
-      ],
-      "fieldConfig": {
-        "defaults": {
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "options": {
-        "orientation": "horizontal",
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 0,
-        "showValue": "always",
-        "stacking": "none",
-        "groupWidth": 0.7,
-        "barWidth": 0.97,
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 24,
-        "x": 0,
-        "y": 32
-      }
-    },
-    {
       "id": 15,
       "type": "barchart",
       "title": "Top Queries by Mean Execution Time",
