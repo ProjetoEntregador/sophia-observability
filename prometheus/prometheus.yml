@@ -14,7 +14,7 @@ scrape_configs:
       - targets: ["medication-postgres-exporter:9187"]
         labels:
           service: "medication"
-          database: "database_name"
+          database: "medication_db"
 
   - job_name: "notification-db"
     static_configs:
