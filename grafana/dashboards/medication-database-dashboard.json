@@ -90,7 +90,7 @@
       },
       "targets": [
         {
-          "expr": "max(pg_stat_activity_active_connections_count{service=\"medication\", datname=\"database_name\"})",
+          "expr": "max(pg_stat_activity_active_connections_count{service=\"medication\", datname=\"medication_db\"})",
           "refId": "A",
           "instant": true,
           "legendFormat": "active"
@@ -148,7 +148,7 @@
       },
       "targets": [
         {
-          "expr": "max(pg_database_size_bytes{service=\"medication\", datname=\"database_name\"})",
+          "expr": "max(pg_database_size_bytes{service=\"medication\", datname=\"medication_db\"})",
           "refId": "A",
           "instant": true,
           "legendFormat": "database_name"
@@ -206,7 +206,7 @@
       },
       "targets": [
         {
-          "expr": "max(pg_locks_count{service=\"medication\", datname=\"database_name\"})",
+          "expr": "max(pg_locks_count{service=\"medication\", datname=\"medication_db\"})",
           "refId": "A",
           "instant": true,
           "legendFormat": "locks"
@@ -264,7 +264,7 @@
       },
       "targets": [
         {
-          "expr": "max(pg_database_size_bytes{service=\"medication\", datname=\"database_name\"})",
+          "expr": "max(pg_database_size_bytes{service=\"medication\", datname=\"medication_db\"})",
           "legendFormat": "database_name",
           "refId": "A"
         }
@@ -303,17 +303,17 @@
       },
       "targets": [
         {
-          "expr": "max(rate(pg_stat_database_tup_inserted{service=\"medication\", datname=\"database_name\"}[1m]))",
+          "expr": "max(rate(pg_stat_database_tup_inserted{service=\"medication\", datname=\"medication_db\"}[1m]))",
           "legendFormat": "inserted",
           "refId": "A"
         },
         {
-          "expr": "max(rate(pg_stat_database_tup_updated{service=\"medication\", datname=\"database_name\"}[1m]))",
+          "expr": "max(rate(pg_stat_database_tup_updated{service=\"medication\", datname=\"medication_db\"}[1m]))",
           "legendFormat": "updated",
           "refId": "B"
         },
         {
-          "expr": "max(rate(pg_stat_database_tup_deleted{service=\"medication\", datname=\"database_name\"}[1m]))",
+          "expr": "max(rate(pg_stat_database_tup_deleted{service=\"medication\", datname=\"medication_db\"}[1m]))",
           "legendFormat": "deleted",
           "refId": "C"
         }
@@ -380,7 +380,7 @@
       },
       "targets": [
         {
-          "expr": "sum by (state) (pg_stat_activity_connections_by_state_count{service=\"medication\", datname=\"database_name\"})",
+          "expr": "sum by (state) (pg_stat_activity_connections_by_state_count{service=\"medication\", datname=\"medication_db\"})",
           "legendFormat": "{{state}}",
           "refId": "A",
           "instant": true
@@ -427,7 +427,7 @@
       },
       "targets": [
         {
-          "expr": "max(pg_locks_count{service=\"medication\", datname=\"database_name\"})",
+          "expr": "max(pg_locks_count{service=\"medication\", datname=\"medication_db\"})",
           "legendFormat": "locks",
           "refId": "A"
         }
@@ -466,12 +466,12 @@
       },
       "targets": [
         {
-          "expr": "max(rate(pg_stat_database_xact_commit{service=\"medication\", datname=\"database_name\"}[1m]))",
+          "expr": "max(rate(pg_stat_database_xact_commit{service=\"medication\", datname=\"medication_db\"}[1m]))",
           "legendFormat": "commit",
           "refId": "A"
         },
         {
-          "expr": "max(rate(pg_stat_database_xact_rollback{service=\"medication\", datname=\"database_name\"}[1m]))",
+          "expr": "max(rate(pg_stat_database_xact_rollback{service=\"medication\", datname=\"medication_db\"}[1m]))",
           "legendFormat": "rollback",
           "refId": "B"
         }
@@ -510,7 +510,7 @@
       },
       "targets": [
         {
-          "expr": "topk(10, max by (query_preview) (pg_stat_statements_top_mean_time_mean_exec_time{service=\"medication\", datname=\"database_name\"}))",
+          "expr": "topk(10, max by (query_preview) (pg_stat_statements_top_mean_time_mean_exec_time{service=\"medication\", datname=\"medication_db\"}))",
           "legendFormat": "{{query_preview}}",
           "refId": "A",
           "instant": true
@@ -557,7 +557,7 @@
       },
       "targets": [
         {
-          "expr": "topk(10, max by (query_preview) (pg_stat_statements_most_called_calls{service=\"medication\", datname=\"database_name\"}))",
+          "expr": "topk(10, max by (query_preview) (pg_stat_statements_most_called_calls{service=\"medication\", datname=\"medication_db\"}))",
           "legendFormat": "{{query_preview}}",
           "refId": "A",
           "instant": true
@@ -604,7 +604,7 @@
       },
       "targets": [
         {
-          "expr": "topk(10, max by (query_preview) (pg_stat_statements_io_time_total_io_time{service=\"medication\", datname=\"database_name\"}))",
+          "expr": "topk(10, max by (query_preview) (pg_stat_statements_io_time_total_io_time{service=\"medication\", datname=\"medication_db\"}))",
           "legendFormat": "{{query_preview}}",
           "refId": "A",
           "instant": true
