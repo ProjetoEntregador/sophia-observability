@@ -30,6 +30,9 @@ limits_config:
   retention_period: 168h
   allow_structured_metadata: false
 
+  per_stream_rate_limit: 10MB
+  per_stream_rate_limit_burst: 15MB
+
 compactor:
   working_directory: /loki/compactor
   retention_enabled: true
